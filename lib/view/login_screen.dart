@@ -14,29 +14,29 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(left: 24),
-            child: Row(
-              children: <Widget>[
-                Text(
-                  'Faça seu login',
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontFamily: 'SFProDisplay',
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                Icon(
-                  Icons.lock_open,
-                  size: 25,
-                  color: Colors.yellow,
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
               children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Text(
+                      'Faça seu login',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontFamily: 'SFProDisplay',
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Icon(
+                      Icons.lock_open,
+                      size: 25,
+                      color: Colors.yellow,
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 24,
+                ),
                 Container(
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.only(bottom: 10),
@@ -56,15 +56,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(fontSize: 14),
                     )),
                 _buildPassword(),
-                Expanded(
-                  child: Align(
-                    alignment: FractionalOffset.bottomCenter,
-                    child: _buildLoginButton(context)
-                  ),
-                ),
+                SizedBox(height: 24,),
+                // Align(
+                //   alignment: FractionalOffset.bottomCenter,
+                //   child: _buildLoginButton(context),
+                // ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -101,8 +100,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildLoginButton(BuildContext context) {
     final color = Theme.of(context).primaryColor;
     return Container(
-      width: double.infinity,
-      height: 50,
+      constraints: BoxConstraints.expand(
+        height: 50
+      ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(33),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -8,6 +9,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final passwordNode = FocusNode();
   final buttonNode = FocusNode();
+  bool hiddenPassword = true;
 
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -18,9 +20,15 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.only(top: 184),
-            child: Text(
-              'Faça seu login',
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  'Faça seu login',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(width: 5.0,),
+                Icon(FontAwesomeIcons.key, color: Color(0xFFA67C00), size: 25,),
+              ],
             ),
           ),
           Container(
@@ -54,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 _buildPassword(context),
                 SizedBox(
-                  height: 80,
+                  height: 170,
                 ),
                 _buildLoginButton(context),
               ],
@@ -68,14 +76,14 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildLogin() {
     return TextField(
       textInputAction: TextInputAction.next,
-      autofocus: true,
       decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(3.0),
             borderSide: BorderSide(width: 2),
           ),
-          suffixIcon: Icon(Icons.lock),
+          suffixIcon: Icon(FontAwesomeIcons.envelope, color: Color(0XFFAAAAAA),),
           hintText: 'rodrigodearkor@gmail.com'),
       style: TextStyle(fontSize: 20),
       onSubmitted: (value)  {
@@ -86,15 +94,25 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextField _buildPassword(BuildContext context) {
     return TextField(
+      obscureText: hiddenPassword,
       focusNode: passwordNode,
+      enableInteractiveSelection: false,
       // textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         contentPadding:
             const EdgeInsets.symmetric(vertical: 13, horizontal: 20),
         border: OutlineInputBorder(
           borderSide: BorderSide(width: 2),
+          borderRadius: BorderRadius.circular(3.0)
         ),
-        suffixIcon: Icon(Icons.inbox),
+        suffixIcon: GestureDetector(
+          onTap: () {
+              setState(() {
+                hiddenPassword = !hiddenPassword;
+              });
+          },
+          child: Icon(hiddenPassword ? FontAwesomeIcons.eyeSlash : FontAwesomeIcons.eye, color: Color(0XFFAAAAAA))
+        ),
       ),
       style: TextStyle(fontSize: 24),
     );
@@ -107,11 +125,11 @@ class _LoginScreenState extends State<LoginScreen> {
       width: double.infinity,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(5.0),
         ),
         color: color,
         child: Text(
-          'Enviar',
+          'Entrar',
           style: TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
         ),
